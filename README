@@ -1,0 +1,8 @@
+This plugin pops up a window which enables the user to create boxes with 
+the full range of HTML borders, font selection and font size, screen positioning
+for box and included text.  Borders and fonts can be sized.  All elements
+can use foreground and, where applicable, background colors.
+
+To use this plugin, you can select the text or add text after the box has
+been created.  Text can be aligned.  However, images cannot; their alignment
+depends on standard Dokuwiki image alignment markup.
