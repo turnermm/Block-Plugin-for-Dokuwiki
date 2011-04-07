@@ -4,6 +4,7 @@ email turnermm02@shaw.ca
 date 2011-04-07
 name Block Plugin
 desc Create sized boxes with borders,font and color selection, and screen positoning
-url 
+url http://www.dokuwiki.org/plugin:block
+
 
 
