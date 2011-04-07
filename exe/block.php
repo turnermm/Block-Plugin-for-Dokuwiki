@@ -201,7 +201,7 @@ function createBock() {
   blockSettings['border_width'] + ' ' + blockSettings['border_style'] + ' '
                         + blockSettings['border_color'] + ';' +
   blockSettings['font_family'] + '/' + blockSettings['font_size'];
-alert(styles);
+//alert(styles);
   
 window.opener.createBlock(styles);
 window.close();
