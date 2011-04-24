@@ -4,7 +4,7 @@
   */
                         
   if(toolbar){
-     var url = encodeURI('lib/plugins/block/exe/block.php');      
+     var url = encodeURI('lib/plugins/block/exe/block.php?');      
      toolbar[toolbar.length] = {"type":"mediapopup", "title":"block utility", "key":"",
                                 "icon": "../../plugins/block/images/block.png",                          
                                 "url":   url,
