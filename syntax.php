@@ -36,7 +36,8 @@ require_once(DOKU_PLUGIN.'syntax.php');
  *  text-color is rgb(255, 255, 153); the box border is 2px wide, dashed, its color is rgb(255, 102, 255).
  *  The font is 10pt Comic Sans MS.
  *   
- *  Only width and alignment are required
+ *  Only width and alignment are required.  In this case, if alignment is 'c' or 'r', 
+ *  then you must follow it with a colon:  'c:'
 */
 
 class syntax_plugin_block extends DokuWiki_Syntax_Plugin {
