@@ -58,7 +58,7 @@ class syntax_plugin_block extends DokuWiki_Syntax_Plugin {
     }
  
     function getType(){ return 'formatting'; }
-    function getAllowedTypes() { return array('formatting', 'substition', 'disabled'); }   
+    function getAllowedTypes() { return array('formatting','baseonly', 'substition','container', 'paragraphs'); }   
     function getSort(){ return 160; }
     function connectTo($mode) { $this->Lexer->addEntryPattern('<block.*?>(?=.*?</block>)',$mode,'plugin_block'); }
     function postConnect() { $this->Lexer->addExitPattern('</block>','plugin_block'); }
