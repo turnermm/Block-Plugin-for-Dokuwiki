@@ -36,13 +36,15 @@ function show_text_entry(el) {
         el.innerHTML=text;
          
     }
-    //insertAtCarret(d, 'testing insert ' + text);
-   // insertTags(ta,'<block1>', '</block1>', 'abc') ;
-
+   
    return saveSelectionObj;
 }
 
 function createBlock(styles) {
-insertTags(wikiTextArea,'<block ' + styles + '>', '</block>', 'abc') ;
-
+	if(jQuery) {
+	insertTags('wiki__text','<block ' + styles + '>', '</block>', 'abc') ;
+	}
+	else {
+	   insertTags(wikiTextArea,'<block ' + styles + '>', '</block>', 'abc') ;
+	}
 }
