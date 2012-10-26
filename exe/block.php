@@ -27,7 +27,8 @@ var blockSettings = {
   border_width: '4px', 
   font_family: 'arial,sans-serif', 
   font_size: '9pt;',
-  block_align: '0'
+  block_align: '0',
+  corners: ''
 };
 
 var FontNamesArray = Array(
@@ -187,7 +188,15 @@ function setBlockAlign(align) {
   
 }
 
-
+function setCorners() {
+	var dom = document.getElementById('rounded');
+	if(dom.checked) {
+		blockSettings['corners'] = 'rounded';
+	}
+	else {
+		blockSettings['corners'] = '';
+		}
+}	
 
 function createBock() {
 /*   Example:  
@@ -201,8 +210,8 @@ function createBock() {
   blockSettings['border_width'] + ' ' + blockSettings['border_style'] + ' '
                         + blockSettings['border_color'] + ';' +
   blockSettings['font_family'] + '/' + blockSettings['font_size'];
-//alert(styles);
   
+ styles+=  blockSettings['corners'];
 window.opener.createBlock(styles);
 window.close();
 
@@ -260,9 +269,13 @@ td.colorchart
    </tr>
     <tr>
      <th>Block Width: </th>
-     <td colspan="3"><input type='text' size = "2" value='80' id = 'block_width' onchange="setBlockWidth();"
+     <td ><input type='text' size = "2" value='80' id = 'block_width' onchange="setBlockWidth();"
                name = 'block_width'> % of window
      </td>
+	 <th>Rounded Corners:
+	      <input type='checkbox' name='rounded' id='rounded' onchange="setCorners()">
+	 </th>
+	 <td></td>
    </tr>
    
     <tr>

@@ -62,7 +62,7 @@ class syntax_plugin_block extends DokuWiki_Syntax_Plugin {
     function getSort(){ return 160; }
     function connectTo($mode) { $this->Lexer->addEntryPattern('<block.*?>(?=.*?</block>)',$mode,'plugin_block'); }
     function postConnect() { $this->Lexer->addExitPattern('</block>','plugin_block'); }
- 
+    function getPType() {  return "stack"; }
  
     /**
      * Handle the match
@@ -78,13 +78,14 @@ class syntax_plugin_block extends DokuWiki_Syntax_Plugin {
         $font = "";
         $face = "";
         $font_size = "";
-    
+        $rounded_corners = " class='blocks_round' ";
+		$class = "";
         if( (isset($_REQUEST['do']) && $_REQUEST['do'] == 'edit') ) {
          $this->edit = true;     
        }
         switch ($state) {
           case DOKU_LEXER_ENTER :
-
+                
                 list($type, $val) = preg_split("/\s+/u", substr($match, 1, -1), 2);
 
                 if(!isset($type)) return array($state, '');
@@ -92,6 +93,11 @@ class syntax_plugin_block extends DokuWiki_Syntax_Plugin {
                       $this->edit = false;   
                       return array($state, '<div>');
                 }
+				if(preg_match("/rounded\s*$/",$val)) {
+					$val = preg_replace("/rounded\s*$/","",$val);
+					$class = $rounded_corners;
+				}	
+
                 if(preg_match('/(\d+)\%?:(\d+|r|c):(.*)/',$val, $matches)) {
                    $width =   $matches[1] .'%';
                 
@@ -129,12 +135,12 @@ class syntax_plugin_block extends DokuWiki_Syntax_Plugin {
 
                   if($this->edit){
                     return array($state,
-                     "<blockquote style='$border width:$width;display:block;padding:8px; $margin;"
+                     "<blockquote $class style='$border width:$width;display:block;padding:8px; $margin;"
                      . "  background-color:$bgcolor $text_color $font'>" );
                   }
 
                   return array($state,
-                     "<div style='$border width:$width; padding:8px; $margin;"
+                     "<div $class style='$border width:$width; padding:8px; $margin;"
                      . "  background-color:$bgcolor $text_color $font'>");
                 
  
@@ -190,7 +196,7 @@ class syntax_plugin_block extends DokuWiki_Syntax_Plugin {
 
 function write_debug($data) {
 
-  if (!$handle = fopen('data_check.txt', 'a')) {
+  if (!$handle = fopen('block_check.txt', 'a')) {
     return;
     }
 

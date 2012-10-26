@@ -1,7 +1,7 @@
 base block
 author Myron Turner
 email turnermm02@shaw.ca
-date 2011-04-07
+date 2011-10-26
 name Block Plugin
 desc Create sized boxes with borders,font and color selection, and screen positoning
 url http://www.dokuwiki.org/plugin:block

@@ -1,0 +1,20 @@
+
+/* Adapted from the wrap plugin */
+/*____________ rounded corners ____________*/
+/* (only for modern browsers) */
+
+.dokuwiki div.blocks_round {
+    border-radius: 20px;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -khtml-border-radius: 20px;
+}
+.dokuwiki span.blocks_round {
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -khtml-border-radius: 2px;
+}
+
+
+
