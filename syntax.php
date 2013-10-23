@@ -43,20 +43,7 @@ require_once(DOKU_PLUGIN.'syntax.php');
 class syntax_plugin_block extends DokuWiki_Syntax_Plugin {
  
     var $edit = false;
-    /**
-     * return some info
-     */
-    function getInfo(){
-        return array(
-            'author' => 'Myron Turner',
-            'email'  => 'turnermm02@shaw.ca',
-            'date'   => '2007-12-26',
-            'name'   => 'HTML Block Markup',
-            'desc'   => 'Controls font size, face, and block configuration',
-            'url'    => 'http://www.mturner.org/development',
-        );
-    }
- 
+
     function getType(){ return 'formatting'; }
     function getAllowedTypes() { return array('formatting','baseonly', 'substition','container', 'paragraphs'); }   
     function getSort(){ return 160; }
