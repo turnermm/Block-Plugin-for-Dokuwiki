@@ -27,7 +27,7 @@ var blockSettings = {
   border_width: '4px', 
   font_family: 'arial,sans-serif', 
   font_size: '9pt;',
-  block_align: '0',
+  block_align: '10',
   corners: ''
 };
 
