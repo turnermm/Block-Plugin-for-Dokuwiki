@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Color: Sets new colors for text and background.
+ * Plugin Block:  Create sized boxes with borders,font and color selection, and screen positoning
  * 
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  * @author     Myron Turner <turnermm02@shaw.ca>
