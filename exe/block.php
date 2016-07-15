@@ -65,9 +65,8 @@ function _dom(id) {
 window.onload = function() {
    pluginDisplayDiv = document.getElementById('user_block');
    wikiTextArea = window.opener.initialize(pluginDisplayDiv);
-   selectionObj = window.opener.show_text_entry(pluginDisplayDiv);  
-  
    FontOptions = document.getElementById('fonts_styles');
+  
    FontOptions.options[0] = new Option('Select Type Face', 'none',true,false);
    for(var i=0; i < FontNamesArray.length; i++) {
        FontOptions.options[FontOptions.options.length] = new Option(FontNamesArray[i],FontNamesArray[i],false,false);
