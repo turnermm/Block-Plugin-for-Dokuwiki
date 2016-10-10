@@ -30,7 +30,10 @@ function setIdObj(id,w) {
 
 function show_text_entry(el) {
 
-   saveSelectionObj = getSelection(wikiTextArea);
+    if(typeof window.getSelection != 'undefined'  && typeof  window.getSelection.getText !='undefined') {
+        saveSelectionObj = getSelection(wikiTextArea);
+    }
+    else  saveSelectionObj =  DWgetSelection(wikiTextArea); 
     var text = saveSelectionObj.getText();
     if(text) {
         el.innerHTML=text;
