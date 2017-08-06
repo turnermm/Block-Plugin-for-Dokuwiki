@@ -36,13 +36,16 @@ var FontNamesArray = Array(
 'Arial Black',
 'Arial Narrow',
 'Arial Rounded MT Bold',
-'Baskerville, Baskerville Old Face',
+'Baskerville',
+'Baskerville Old Face',
 'Bauhaus 93',
 'Comic Sans MS',
-'Copperplate, Copperplate Gothic Bold',
+'Copperplate',
+'Copperplate Gothic Bold',
 'Courier',
 'Courier New',
-'Futura, Futura Md BT',
+'Futura',
+'Futura Md BT',
 'Georgia',
 'Garamond',
 'Helvetica',
@@ -50,7 +53,8 @@ var FontNamesArray = Array(
 'Sans-serif',
 'Microsoft Sans Serif',
 'Serif',
-'Palatino, Palatino Linotype',
+'Palatino',
+'Palatino Linotype',
 'Papyrus',
 'Tahoma',
 'Times New Roman',
@@ -62,7 +66,61 @@ function _dom(id) {
    return document.getElementById(id); 
 }
 
+/*
+@author  https://www.kirupa.com/
+    https://www.kirupa.com/html5/detect_whether_font_is_installed.htm
+*/
+function block_supports_canvas() {
+    return !!document.createElement('canvas').getContext;
+}
+function doesFontExist(fontName) {
+    // creating our in-memory Canvas element where the magic happens
+    var canvas = document.createElement("canvas");
+    var context = canvas.getContext("2d");
+     
+    // the text whose final pixel size I want to measure
+    var text = "abcdefghijklmnopqrstuvwxyz0123456789";
+     
+    // specifying the baseline font
+    context.font = "72px monospace";
+     
+    // checking the size of the baseline text
+    var baselineSize = context.measureText(text).width;
+     
+    // specifying the font whose existence we want to check
+    context.font = "72px '" + fontName + "', monospace";
+     
+    // checking the size of the font we want to check
+    var newSize = context.measureText(text).width;
+     
+    // removing the Canvas element we created
+    delete canvas;
+     
+    //
+    // If the size of the two text instances is the same, the font does not exist because it is being rendered
+    // using the default sans-serif font
+    //
+    if (newSize == baselineSize) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
 window.onload = function() {
+    var FontsExist = new Array();
+    if(block_supports_canvas()) {
+        for(var i=0,j=0; i<FontNamesArray.length; i++ ) {
+            if(!doesFontExist(FontNamesArray[i])) {           
+                continue;
+            }
+            FontsExist[j] =FontNamesArray[i];
+            j++;
+      }      
+       if(FontsExist.length) {
+            FontNamesArray = FontsExist;    
+       }
+    }
    pluginDisplayDiv = document.getElementById('user_block');
    wikiTextArea = window.opener.initialize(pluginDisplayDiv);
    selectionObj = window.opener.show_text_entry(pluginDisplayDiv); 
