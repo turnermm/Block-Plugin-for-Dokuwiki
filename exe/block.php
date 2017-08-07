@@ -45,7 +45,6 @@ window.onload = function() {
                 blockSettings[prop] = opts[prop] ; 
          //     alert(prop + _default + " new = " +blockSettings[prop])
              if(_dom(prop)) {
-           //     alert("resetting  " + prop + "to " + blockSettings[prop] + _default)
                 _dom(prop).value = blockSettings[prop];
             }
             else {
@@ -57,7 +56,7 @@ window.onload = function() {
                     if(blockSettings[prop] == 'r') {
                        _dom('block_right').click() ;
                     }                               
-                }                 
+                }            
             }            
         }
     }
@@ -366,7 +365,7 @@ td.colorchart
 
     <table cellspacing="8">
     <td style='border-top: #3B3B1F solid 2px; color #3B3B1F;'>
-       <input type='radio' name = 'border_style'  onclick="setBorderStyle('solid')"  value='solid'> solid 
+       <input type='radio' name = 'border_style'  id = 'solid'   onclick="setBorderStyle('solid')"  value='solid'> solid 
     <td style='border-top: #3B3B1F dotted 2px; color #3B3B1F;'>
        <input type='radio' name = 'border_style' id = 'dotted' onclick="setBorderStyle('dotted')" value='dotted'> dotted
     <td style='border-top: #3B3B1F dashed 2px; color #3B3B1F;'>
