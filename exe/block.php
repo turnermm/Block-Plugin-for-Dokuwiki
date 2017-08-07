@@ -92,8 +92,9 @@ window.onload = function() {
 }
 
 
-function setBorderWidth() {
-  var width = _dom('border_width').value + 'px';
+function setBorderWidth() {    
+  var width = _dom('border_width').value;
+  if(!width.match( /\d+px/) ) width += 'px';  
   _dom('user_block').style.borderWidth = width;
   blockSettings['border_width'] = width;
 }
