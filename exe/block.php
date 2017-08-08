@@ -53,9 +53,15 @@ window.onload = function() {
                     if(blockSettings[prop] == 'c') {
                        _dom('block_center').click() ;
                     } 
-                    if(blockSettings[prop] == 'r') {
+                    else if(blockSettings[prop] == 'r') {
                        _dom('block_right').click() ;
                     }                               
+                    else {
+                        _dom('block_right').checked = false;
+                        _dom('block_center').checked = false;
+                         _dom('block_align_left').value =  blockSettings[prop];
+                        setBlockAlignLeft() ;
+                    }                    
                 }   
                 else  if(prop == 'border_style') {                   
                     _dom(blockSettings[prop]).click() ;
@@ -95,7 +101,7 @@ window.onload = function() {
        FontOptions.options[FontOptions.options.length] = new Option(FontNamesArray[i],FontNamesArray[i],false,false);
    }
    FontOptions.options[FontOptions.options.length] = new Option('Default type face','auto',false,false);
- 
+   setBorderWidth();
    window.focus();
 }
 
@@ -194,6 +200,8 @@ function setBlockAlignLeft() {
  if(left == 0) left = 1;
  _dom('user_block').style.marginLeft = left  + 'px';  
   blockSettings['block_align'] = left ;
+  _dom('block_right').checked = false;
+ _dom('block_center').checked = false;
 }
 
 function setBlockAlign(align) {
