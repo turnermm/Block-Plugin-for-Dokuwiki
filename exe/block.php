@@ -385,13 +385,13 @@ td.colorchart
 
     <tr>    
     <td style='border-bottom: #cccccc groove 8px; color #3B3B1F;'>
-        <input type='radio' name = 'border_style' onclick="setBorderStyle('groove')" value='groove'>  groove 
+        <input type='radio' name = 'border_style'  id = "groove" onclick="setBorderStyle('groove')" value='groove'>  groove 
     <td style='border: #cccccc inset 4px; color #3B3B1F;'>
-        <input type='radio' name = 'border_style' onclick="setBorderStyle('inset')" value='inset'> inset
+        <input type='radio' name = 'border_style' id = "inset" onclick="setBorderStyle('inset')" value='inset'> inset
     <td style='border: #cccccc outset 4px; color #3B3B1F;'>
-        <input type='radio' name = 'border_style' onclick="setBorderStyle('outset')" value='outset'> outset 
+        <input type='radio' name = 'border_style'  id = "outset" onclick="setBorderStyle('outset')" value='outset'> outset 
     <td style='border-bottom: #cccccc ridge 8px; color #3B3B1F;'>
-        <input type='radio' name = 'border_style' onclick="setBorderStyle('ridge')" value='ridge'> ridge
+        <input type='radio' name = 'border_style'  id = "ridge" onclick="setBorderStyle('ridge')" value='ridge'> ridge
     </tr></table>
    
    
