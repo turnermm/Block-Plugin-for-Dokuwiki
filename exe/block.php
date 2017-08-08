@@ -31,56 +31,84 @@ var blockSettings = {
   corners: ''
 };
 
-var FontNamesArray = Array(
-'Arial',
-'Arial Black',
-'Arial Narrow',
-'Arial Rounded MT Bold',
-'Baskerville, Baskerville Old Face',
-'Bauhaus 93',
-'Comic Sans MS',
-'Copperplate, Copperplate Gothic Bold',
-'Courier',
-'Courier New',
-'Futura, Futura Md BT',
-'Georgia',
-'Garamond',
-'Helvetica',
-'Impact',
-'Sans-serif',
-'Microsoft Sans Serif',
-'Serif',
-'Palatino, Palatino Linotype',
-'Papyrus',
-'Tahoma',
-'Times New Roman',
-'Trebuchet MS',
-'Verdana'
-);
 
 function _dom(id) {
    return document.getElementById(id); 
 }
 
-window.onload = function() {
+window.onload = function() {      
+  
+   var opts = window.opener.Block_plugin_options;
+   var _font_family;
+   for(var prop in opts) { 
+      if(opts[prop] && blockSettings[prop] != opts[prop] ) {          
+                var _default =  " default is  " + blockSettings[prop] ;
+                blockSettings[prop] = opts[prop] ; 
+             if(_dom(prop)) {
+                _dom(prop).value = blockSettings[prop];
+            }
+            else {
+                if(prop == 'block_align') {
+                    setBlockAlign(blockSettings[prop]);            
+                    if(blockSettings[prop] == 'c') {
+                       _dom('block_center').click() ;
+                    } 
+                    else if(blockSettings[prop] == 'r') {
+                       _dom('block_right').click() ;
+                    }                               
+                    else {
+                        _dom('block_right').checked = false;
+                        _dom('block_center').checked = false;
+                         _dom('block_align_left').value =  blockSettings[prop];
+                        setBlockAlignLeft() ;
+                    }                    
+                }   
+                else  if(prop == 'border_style') {                   
+                    _dom(blockSettings[prop]).click() ;
+                }                
+                else if(prop == 'font_family') {
+                   _font_family = blockSettings[prop];                            
+               }  
+            }            
+        }
+    }
+    
+    
+    FontNamesArray = window.opener.getfnarray() ;
+    var FontsExist = new Array();
+    if(window.opener.block_supports_canvas()) {
+        for(var i=0,j=0; i<FontNamesArray.length; i++ ) {
+            if(!window.opener.doesFontExist(FontNamesArray[i])) {           
+                continue;
+            }
+            FontsExist[j] =FontNamesArray[i];
+            j++;
+      }      
+       if(FontsExist.length) {
+            FontNamesArray = FontsExist;    
+       }
+    }
    pluginDisplayDiv = document.getElementById('user_block');
    wikiTextArea = window.opener.initialize(pluginDisplayDiv);
    selectionObj = window.opener.show_text_entry(pluginDisplayDiv); 
    
    FontOptions = document.getElementById('fonts_styles');
-  
-   FontOptions.options[0] = new Option('Select Type Face', 'none',true,false);
+    if(_font_family) {
+     FontOptions.options[0] = new Option(_font_family, _font_family,true,false);
+   }
+   else FontOptions.options[0] = new Option(blockSettings['font_family'],blockSettings['font_family'],true,false);
    for(var i=0; i < FontNamesArray.length; i++) {
        FontOptions.options[FontOptions.options.length] = new Option(FontNamesArray[i],FontNamesArray[i],false,false);
    }
    FontOptions.options[FontOptions.options.length] = new Option('Default type face','auto',false,false);
- 
+   setBorderWidth();
    window.focus();
 }
 
 
-function setBorderWidth() {
-  var width = _dom('border_width').value + 'px';
+function setBorderWidth() {    
+  var width = _dom('border_width').value;
+  if(!width.match( /\d+px/) ) width += 'px';  
   _dom('user_block').style.borderWidth = width;
   blockSettings['border_width'] = width;
 }
@@ -172,6 +200,8 @@ function setBlockAlignLeft() {
  if(left == 0) left = 1;
  _dom('user_block').style.marginLeft = left  + 'px';  
   blockSettings['block_align'] = left ;
+  _dom('block_right').checked = false;
+ _dom('block_center').checked = false;
 }
 
 function setBlockAlign(align) {
@@ -231,11 +261,12 @@ window.close();
 <style type="text/css">
 #block_display { padding: 1em; margin:auto; border: 4px #bbbbbb inset; height: 350px; width: 500px; overflow:auto;}
 #user_block {  border:1px gray dashed;  margin:auto; width: 90%; height: 90%;}
-a.close { color: gray; font-size: 8pt; font-weight:bold; text-decoration:none; }
-body, button, input { font-size: 9pt; }
+a.close { color: gray; font-size: 10.5pt; font-weight:bold; text-decoration:none; }
+body, button, input { font-size: 10pt; }
 #BlockBorder, #ColorChart, #FontSelection { display: none; }
 #MainPanel,#BlockBorder,#ColorChart,#FontSelection { padding: 1em; }
-input.eightpoint { font-size: 8pt; }
+input.tenpoint { font-size: 10pt; }
+th.tenpoint, span.tenpoint { font-size: 10.5pt; }
 td.colorchart
 {
    width:16px;
@@ -256,25 +287,25 @@ td.colorchart
     <table width="90%" cellpadding="4px" border="0" align="center">
     <tr>
     <td>
-    <input type='button' class="eightpoint"  value = "Border Style" 
+    <input type='button' class="tenpoint"  value = "Border Style" 
        onclick="panelDisplay('BlockBorder')" >
     </td>
-    <td align="center"><input type='button' class="eightpoint" value = "Text Color" 
+    <td align="center"><input type='button' class="tenpoint" value = "Text Color" 
        onclick="panelDisplay('ColorChart');setActiveFGElement('user_block');" >
     </td>
-    <td align="left"><input type='button' class="eightpoint" value = "Background Color" 
+    <td align="left"><input type='button' class="tenpoint" value = "Background Color" 
        onclick="panelDisplay('ColorChart');setActiveBGElement('user_block');" >
    </td>
-   <td align="left"><input type='button' class="eightpoint" value = "Font Selection" 
+   <td align="left"><input type='button' class="tenpoint" value = "Font Selection" 
        onclick="panelDisplay('FontSelection');" >
    </td>
    </tr>
     <tr>
-     <th>Block Width: </th>
-     <td ><input type='text' size = "2" value='80' id = 'block_width' onchange="setBlockWidth();"
+     <th class='tenpoint'>Block Width: </th>
+     <td ><input type='text' size = "2" value= "80" id = 'block_width' onchange="setBlockWidth();"
                name = 'block_width'> % of window
      </td>
-	 <th>Rounded Corners:
+	 <th class='tenpoint'>Rounded Corners:
 	      <input type='checkbox' name='rounded' id='rounded' onchange="setCorners()">
 	 </th>
 	 <td></td>
@@ -282,20 +313,20 @@ td.colorchart
    
     <tr>
 
-    <th>Alignment: </th>   
+    <th class='tenpoint'>Alignment: </th>   
      <td nowrap><input type='text' size = "2" value='10' id = 'block_align_left' 
                  onchange="setBlockAlignLeft();"
-                 name = 'block_align_left'> px from left 
+                 name = 'block_align_left'><span class = 'tenpoint'> px from left</span>
      <td><input  type="radio" id = 'block_center' onclick="setBlockAlign('c');"
-                   name = 'block_align'> center
+                   name = 'block_align'> <span class = 'tenpoint'>center</span>
      <td><input type="radio" id = 'block_right' onclick="setBlockAlign('r');"
-                  name = 'block_align'> right
+                  name = 'block_align'> <span class = 'tenpoint'>right</span>
     
      <tr> <td>
-     <input type="button" class="eightpoint" value = "OK" onclick="createBock();">
+     <input type="button" class="tenpoint" value = "OK" onclick="createBock();">
      </td>     
      <td>
-      <input type="button" class="eightpoint" value = "Cancel" onclick="window.close();">
+      <input type="button" class="tenpoint" value = "Cancel" onclick="window.close();">
      </td>
      </tr>
     </table>
@@ -306,9 +337,9 @@ td.colorchart
     <div id="FontSelection">
 
     <form id='fontSel' name="fontSel" >
-    <table width="100%" cellpadding="8px"><tr><th align="left" style="font-size:9pt;">Font Selection
+    <table width="100%" cellpadding="8px"><tr><th align="left" class="tenpoint">Font Selection
     <td alight="right"><a href="javascript:  panelDisplay('MainPanel'); void 0;"
-             class='close' class='close'>close</a>
+              class='close'><span class ="tenpoint">close</span></a>
     </table>
 
      <input type='text' size = "2" value='9' id = 'font_size' name = 'font_size' 
@@ -335,7 +366,7 @@ td.colorchart
     <div id="heading">
     <table width="100%" cellpadding="8px"><tr><th align="left" style="font-size:9pt;">Border Attributes
     <td alight="right"><a href="javascript:  panelDisplay('MainPanel'); void 0;"
-             class='close' class='close'>close</a>
+              class='close'><span class="tenpoint">close</span></a>
     </table>
     </div>  <!--  End of heading -->
 
@@ -344,14 +375,14 @@ td.colorchart
             <input type='text' size = "2" value='4' id = 'border_width' onchange = "setBorderWidth();"               
              name = 'border_width'> px
     &nbsp;&nbsp;&nbsp;&nbsp;
-            <input type='button' name='border_color' value = "Color" class="eightpoint" 
+            <input type='button' name='border_color' value = "Color" class="tenpoint" 
             onclick="setBorderColor('user_block');" >
 
     &nbsp;&nbsp;&nbsp;&nbsp; <input type='radio' name = 'border_style'  onclick="setBorderStyle('none')"  value='solid'> remove border
 
     <table cellspacing="8">
     <td style='border-top: #3B3B1F solid 2px; color #3B3B1F;'>
-       <input type='radio' name = 'border_style'  onclick="setBorderStyle('solid')"  value='solid'> solid 
+       <input type='radio' name = 'border_style'  id = 'solid'   onclick="setBorderStyle('solid')"  value='solid'> solid 
     <td style='border-top: #3B3B1F dotted 2px; color #3B3B1F;'>
        <input type='radio' name = 'border_style' id = 'dotted' onclick="setBorderStyle('dotted')" value='dotted'> dotted
     <td style='border-top: #3B3B1F dashed 2px; color #3B3B1F;'>
@@ -362,13 +393,13 @@ td.colorchart
 
     <tr>    
     <td style='border-bottom: #cccccc groove 8px; color #3B3B1F;'>
-        <input type='radio' name = 'border_style' onclick="setBorderStyle('groove')" value='groove'>  groove 
+        <input type='radio' name = 'border_style'  id = "groove" onclick="setBorderStyle('groove')" value='groove'>  groove 
     <td style='border: #cccccc inset 4px; color #3B3B1F;'>
-        <input type='radio' name = 'border_style' onclick="setBorderStyle('inset')" value='inset'> inset
+        <input type='radio' name = 'border_style' id = "inset" onclick="setBorderStyle('inset')" value='inset'> inset
     <td style='border: #cccccc outset 4px; color #3B3B1F;'>
-        <input type='radio' name = 'border_style' onclick="setBorderStyle('outset')" value='outset'> outset 
+        <input type='radio' name = 'border_style'  id = "outset" onclick="setBorderStyle('outset')" value='outset'> outset 
     <td style='border-bottom: #cccccc ridge 8px; color #3B3B1F;'>
-        <input type='radio' name = 'border_style' onclick="setBorderStyle('ridge')" value='ridge'> ridge
+        <input type='radio' name = 'border_style'  id = "ridge" onclick="setBorderStyle('ridge')" value='ridge'> ridge
     </tr></table>
    
    
@@ -377,9 +408,9 @@ td.colorchart
 
 <div id="ColorChart">
     <div id="c_heading">
-    <table width="100%" cellpadding="8px"><tr><th align="left" style="font-size:9pt;">Color Charts
+    <table width="100%" cellpadding="8px"><tr><th align="left" style="font-size:11pt;">Color Charts
     <td alight="right"><a href="javascript:  panelDisplay('MainPanel'); void 0;"
-             class='close' class='close'>close</a>
+             class="close">close</a>
     </table>
     </div>  <!--  End of c_heading -->
 <table cellspacing="1" align="center" cellpadding="0" style="margin-top:6px;margin-bottom:0px;background-color:#444444;">

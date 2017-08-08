@@ -51,3 +51,111 @@ function createBlock(styles) {
 	   insertTags(wikiTextArea,'<block ' + styles + '>', '</block>', 'abc') ;
 	}
 }
+
+function getfnarray() {
+ var FontNamesArray = Array(
+'Arial',
+'Arial Black',
+'Arial Narrow',
+'Arial Rounded MT Bold',
+'Baskerville',
+'Baskerville Old Face',
+'Bauhaus 93',
+'Comic Sans MS',
+'Copperplate',
+'Copperplate Gothic Bold',
+'Courier',
+'Courier New',
+'Futura',
+'Futura Md BT',
+'Georgia',
+'Garamond',
+'Helvetica',
+'Impact',
+'Sans-serif',
+'Microsoft Sans Serif',
+'Serif',
+'Palatino',
+'Palatino Linotype',
+'Papyrus',
+'Tahoma',
+'Times New Roman',
+'Trebuchet MS',
+'Verdana'
+);
+
+    return FontNamesArray;
+}
+    var Block_plugin_options;
+    var getBlockOptions = function() {         
+         jQuery.ajax(
+          DOKU_BASE + 'lib/exe/ajax.php',
+          {
+            data:
+              {
+                call: 'block__opts'
+              },
+            type: "POST",
+            async: true,
+            dataType: 'json',
+            success: function(data, textStatus, jqXHR)
+            {         
+                  Block_plugin_options = data;
+             },
+            error: function(jqXHR, textStatus, errorThrown )
+              {
+                alert(textStatus);
+                alert(errorThrown);
+              }
+          }
+        );
+    };
+    
+
+jQuery(document).ready(function() {
+  
+  if(JSINFO['block'] && JSINFO['act']) {     
+     getBlockOptions();      
+   }
+});
+
+function block_supports_canvas() {
+    return !!document.createElement('canvas').getContext;
+}
+function doesFontExist(fontName) {
+    // creating our in-memory Canvas element where the magic happens
+    var canvas = document.createElement("canvas");
+    var context = canvas.getContext("2d");
+     
+    // the text whose final pixel size I want to measure
+    var text = "abcdefghijklmnopqrstuvwxyz0123456789";
+     
+    // specifying the baseline font
+    context.font = "72px monospace";
+     
+    // checking the size of the baseline text
+    var baselineSize = context.measureText(text).width;
+     
+    // specifying the font whose existence we want to check
+    context.font = "72px '" + fontName + "', monospace";
+     
+    // checking the size of the font we want to check
+    var newSize = context.measureText(text).width;
+     
+    // removing the Canvas element we created
+    delete canvas;
+     
+    //
+    // If the size of the two text instances is the same, the font does not exist because it is being rendered
+    // using the default sans-serif font
+    //
+    if (newSize == baselineSize) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function getJQy() { 
+  return jQuery;
+}
