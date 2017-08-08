@@ -197,7 +197,7 @@ function setBlockWidth() {
 
 function setBlockAlignLeft() {
  var left = _dom('block_align_left').value;
- if(left == 0) left = 1;
+ //if(left == 0) left = 1;
  _dom('user_block').style.marginLeft = left  + 'px';  
   blockSettings['block_align'] = left ;
   _dom('block_right').checked = false;
