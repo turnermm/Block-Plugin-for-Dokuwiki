@@ -43,7 +43,7 @@ window.onload = function() {
       if(opts[prop] && blockSettings[prop] != opts[prop] ) {          
                 var _default =  " default is  " + blockSettings[prop] ;
                 blockSettings[prop] = opts[prop] ; 
-         //     alert(prop + _default + " new = " +blockSettings[prop])
+         
              if(_dom(prop)) {
                 _dom(prop).value = blockSettings[prop];
             }
@@ -56,7 +56,10 @@ window.onload = function() {
                     if(blockSettings[prop] == 'r') {
                        _dom('block_right').click() ;
                     }                               
-                }            
+                }   
+                else  if(prop == 'border_style') {                   
+                    _dom(blockSettings[prop]).click() ;
+                }                
             }            
         }
     }
