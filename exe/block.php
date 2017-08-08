@@ -39,11 +39,11 @@ function _dom(id) {
 window.onload = function() {      
   
    var opts = window.opener.Block_plugin_options;
+   var _font_family;
    for(var prop in opts) { 
       if(opts[prop] && blockSettings[prop] != opts[prop] ) {          
                 var _default =  " default is  " + blockSettings[prop] ;
                 blockSettings[prop] = opts[prop] ; 
-         
              if(_dom(prop)) {
                 _dom(prop).value = blockSettings[prop];
             }
@@ -60,6 +60,9 @@ window.onload = function() {
                 else  if(prop == 'border_style') {                   
                     _dom(blockSettings[prop]).click() ;
                 }                
+                else if(prop == 'font_family') {
+                   _font_family = blockSettings[prop];                            
+               }  
             }            
         }
     }
@@ -84,8 +87,10 @@ window.onload = function() {
    selectionObj = window.opener.show_text_entry(pluginDisplayDiv); 
    
    FontOptions = document.getElementById('fonts_styles');
-  
-   FontOptions.options[0] = new Option('Select Type Face', 'none',true,false);
+    if(_font_family) {
+     FontOptions.options[0] = new Option(_font_family, _font_family,true,false);
+   }
+   else FontOptions.options[0] = new Option(blockSettings['font_family'],blockSettings['font_family'],true,false);
    for(var i=0; i < FontNamesArray.length; i++) {
        FontOptions.options[FontOptions.options.length] = new Option(FontNamesArray[i],FontNamesArray[i],false,false);
    }
