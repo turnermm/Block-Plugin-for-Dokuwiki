@@ -104,8 +104,8 @@ function getfnarray() {
              },
             error: function(jqXHR, textStatus, errorThrown )
               {
-                alert(textStatus);
-                alert(errorThrown);
+                console.log(textStatus);
+                console.log(errorThrown);               
               }
           }
         );
