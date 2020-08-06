@@ -2,7 +2,7 @@
 /**
  *
  * @license GPL 2 http://www.gnu.org/licenses/gpl-2.0.html
- * @author  Andreas Valder <valder@isf.rwth-aachen.de>
+ * @author  Myron Turner <turnermm02@shaw.ca>
  */
 
 // must be run within Dokuwiki
