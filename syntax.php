@@ -67,9 +67,9 @@ class syntax_plugin_block extends DokuWiki_Syntax_Plugin {
         $font_size = "";
         $rounded_corners = " class='blocks_round' ";
 		$class = "";
-        if( (isset($_REQUEST['do']) && $_REQUEST['do'] == 'edit') ) {
-         $this->edit = true;     
-       }
+        global $INPUT;
+        $this->edit = $INPUT->str('edit');
+
         switch ($state) {
           case DOKU_LEXER_ENTER :
                 
